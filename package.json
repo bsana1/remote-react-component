@@ -16,10 +16,17 @@
     "test": "echo no tests",
     "test:changed": "npm run test -- --changedSince HEAD",
     "test:coverage": "npm run test -- --coverage",
-    "lint": "eslint ."
+    "lint": "eslint --fix ."
   },
   "dependencies": {
-    "react": "^16.14.0"
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/gui": "^4.2.0",
+    "add": "^2.0.6",
+    "babylonjs-hook": "0.1.0-beta.0",
+    "npm": "^7.14.0",
+    "query-string": "^7.0.0",
+    "react": "^16.14.0",
+    "react-babylonjs": "^3.0.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

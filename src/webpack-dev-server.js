@@ -11,16 +11,16 @@ import LocalComponent from "./index.js";
 const url =
   process.env.NODE_ENV === "development" ? "/dist/main.js" : "main.js";
 
-const node = document.getElementById("app");
+const node = document.getElementById("root");
 
 const Component = props =>
   process.env.NODE_ENV === "development"
     ? <LocalComponent {...props} />
     : <RemoteComponent url={url} {...props} />; // prettier-ignore
 
-const App = () => (
+const App = props => (
   <>
-    <Component name="Webpack" />
+    <Component {...props} />
   </>
 );
 

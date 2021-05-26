@@ -1,6 +1,33 @@
 import React from "react";
-import { Title } from "./components/Title";
+import Cube from "./components/Cube";
+import Cylinder from "./components/Cylinder";
 
-export const App = ({ name = "World" }) => {
-  return <Title>Hello {name}!</Title>;
+import { Engine, Scene } from "react-babylonjs";
+import { Color3, Vector3 } from "@babylonjs/core/Maths/math";
+import queryString from "query-string";
+
+export const App = () => {
+  const parsed = queryString.parse(window.location.search);
+
+  const Component = parsed.type === "cube" ? Cube : Cylinder;
+
+  return (
+    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+      <Scene>
+        <freeCamera
+          name="camera1"
+          position={new Vector3(0, 5, -10)}
+          setTarget={[Vector3.Zero()]}
+        />
+        <hemisphericLight
+          name="light1"
+          intensity={0.7}
+          direction={Vector3.Up()}
+        />
+        <Component
+          color={parsed.color === "red" ? Color3.Red() : Color3.Blue()}
+        />
+      </Scene>
+    </Engine>
+  );
 };
