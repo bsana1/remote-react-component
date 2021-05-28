@@ -10,9 +10,11 @@ export const App = () => {
   const parsed = queryString.parse(window.location.search);
 
   const Component = parsed.type === "cube" ? Cube : Cylinder;
+  const width = parsed.width?  parsed.width : 'auto';
+  const height = parsed.width?  parsed.width : 'auto';
 
   return (
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+    <Engine antialias adaptToDeviceRatio canvasId="babylonJS" width={width} height={height}>
       <Scene>
         <freeCamera
           name="camera1"
