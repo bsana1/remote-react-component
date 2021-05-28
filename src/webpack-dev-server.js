@@ -9,7 +9,7 @@ import LocalComponent from "./index.js";
 
 // different paths for localhost vs s3
 const url =
-  process.env.NODE_ENV === "development" ? "/dist/main.js" : "main.js";
+  process.env.NODE_ENV === "development" ? "/dist/remote-react-bundle.js" : "remote-react-bundle.js";
 
 const node = document.getElementById("root");
 

@@ -3,7 +3,7 @@
   "version": "1.0.0-semantic-versioning",
   "description": "Remote Component Starter",
   "private": true,
-  "browser": "dist/main.js",
+  "browser": "dist/remote-react-bundle.js",
   "author": "Paciolan",
   "license": "MIT",
   "scripts": {
