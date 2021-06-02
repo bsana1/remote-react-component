@@ -14,8 +14,10 @@ const RotatingElement = props => {
     if (boxRef.current) {
       const handler = scene.registerBeforeRender(() => {
         let deltaTimeInMillis = scene.getEngine().getDeltaTime();
-        boxRef.current.rotation[props.rotationAxis] +=
-          (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
+        if (boxRef.current) {
+          boxRef.current.rotation[props.rotationAxis] +=
+            (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
+        }
       });
       return () => {
         scene.unregisterBeforeRender(handler);

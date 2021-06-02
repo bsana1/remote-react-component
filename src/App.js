@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cube from "./components/Cube";
 import Cylinder from "./components/Cylinder";
 
@@ -7,20 +7,47 @@ import { Color3, Vector3 } from "@babylonjs/core/Maths/math";
 import queryString from "query-string";
 
 export const App = () => {
-  const parsed = queryString.parse(window.location.search);
+  const [type, setType] = useState("cube");
+  const [width, setWidth] = useState("auto");
+  const [height, setHeight] = useState("auto");
+  const [color, setColor] = useState(Color3.Red());
 
-  const Component = parsed.type === "cube" ? Cube : Cylinder;
-  const width = parsed.width ? parsed.width : "auto";
-  const height = parsed.width ? parsed.width : "auto";
+  const queryParams = window.location.search;
+
+  useEffect(() => {
+    const parsed = (queryParams && queryString.parse(queryParams)) || {};
+
+    if (parsed.height) {
+      setHeight(parsed.height + "px");
+    }
+
+    if (parsed.width) {
+      setWidth(parsed.width + "px");
+    }
+
+    if (parsed.type) {
+      setType(parsed.type);
+    }
+
+    if (parsed.color) {
+      setColor(parsed.color === "red" ? Color3.Red() : Color3.Blue());
+    }
+
+    // event handlers
+    window.onmessage = function (e) {
+      if (e.data && e.data.type == "change-model") {
+        console.log(
+          "[from shop-in-3d-frame]: msg received",
+          e.data.type,
+          e.data.value
+        );
+        setType(e.data.value);
+      }
+    };
+  }, [queryParams]);
 
   return (
-    <Engine
-      antialias
-      adaptToDeviceRatio
-      canvasId="babylonJS"
-      width={width}
-      height={height}
-    >
+    <Engine antialias canvasId="babylonJS" width={width} height={height}>
       <Scene>
         <freeCamera
           name="camera1"
@@ -32,9 +59,8 @@ export const App = () => {
           intensity={0.7}
           direction={Vector3.Up()}
         />
-        <Component
-          color={parsed.color === "red" ? Color3.Red() : Color3.Blue()}
-        />
+        {type === "cube" && <Cube color={color} />}
+        {type === "cylinder" && <Cylinder color={color} />}
       </Scene>
     </Engine>
   );

@@ -30,7 +30,7 @@ module.exports = {
     main: "./src/index.js"
   },
   output: {
-    libraryTarget: "commonjs",
+    libraryTarget: "commonjs"
   },
   externals: {
     ...externals,
