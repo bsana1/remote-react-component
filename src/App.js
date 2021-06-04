@@ -18,11 +18,11 @@ export const App = () => {
     const parsed = (queryParams && queryString.parse(queryParams)) || {};
 
     if (parsed.height) {
-      setHeight(parsed.height + "px");
+      setHeight(parsed.height);
     }
 
     if (parsed.width) {
-      setWidth(parsed.width + "px");
+      setWidth(parsed.width);
     }
 
     if (parsed.type) {
@@ -36,15 +36,17 @@ export const App = () => {
     // event handlers
     window.onmessage = function (e) {
       if (e.data && e.data.type == "change-model") {
-        console.log(
-          "[from shop-in-3d-frame]: msg received",
-          e.data.type,
-          e.data.value
-        );
+        console.log(`received message: [${e.data.type}, ${e.data.value}]`);
         setType(e.data.value);
+
+        const node = document.getElementById('shop-in-3d-comm');
+        console.log("######", node)
+        node && node.contentWindow.postMessage({ type: 'TEST', value: 'oi' }, '*');
       }
     };
+
   }, [queryParams]);
+
 
   return (
     <Engine antialias canvasId="babylonJS" width={width} height={height}>

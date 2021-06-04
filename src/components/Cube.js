@@ -14,7 +14,7 @@ const RotatingElement = props => {
     if (boxRef.current) {
       const handler = scene.registerBeforeRender(() => {
         let deltaTimeInMillis = scene.getEngine().getDeltaTime();
-        if (boxRef.current) {
+        if (boxRef.current && boxRef.current.rotation) {
           boxRef.current.rotation[props.rotationAxis] +=
             (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000);
         }
@@ -35,7 +35,7 @@ const RotatingElement = props => {
   );
 };
 
-const Cube = ({ color }) => {
+const Cube = ({ color = Color3.Green() }) => {
   return (
     <RotatingElement
       color={color}
